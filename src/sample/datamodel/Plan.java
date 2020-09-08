@@ -1,7 +1,7 @@
 package sample.datamodel;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class Plan {
     private String name;

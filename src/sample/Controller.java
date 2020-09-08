@@ -1,15 +1,15 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import sample.datamodel.Plan;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +39,7 @@ public class Controller {
         Plan plan6=new Plan("Christmas Presents","Buying presents for my friends",
                 LocalDate.of(2020,12,10));
 
+        //plans data
         plans=new ArrayList<>();
         plans.add(plan1);
         plans.add(plan2);
@@ -47,17 +48,22 @@ public class Controller {
         plans.add(plan5);
         plans.add(plan6);
 
+        //eventListener
+        PlansList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Plan>() {
+            @Override
+            public void changed(ObservableValue<? extends Plan> observableValue, Plan t0, Plan t1) {
+                if(t1 != null){
+
+                    planArea.setText(t1.getDescription());
+                    DateTimeFormatter df=DateTimeFormatter.ofPattern("MMMM d, yyyy");
+                    dateLabel.setText(df.format(t1.getDate()));
+                }
+            }
+        });
         PlansList.getItems().setAll(plans);
         PlansList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        PlansList.getSelectionModel().selectFirst();
 
     }
 
-    public void OnClickedPlan() {
-        Plan plan=PlansList.getSelectionModel().getSelectedItem();
-        StringBuilder sb=new StringBuilder(plan.getDescription());
-        sb.append("\n\n\n\n");
-        sb.append("Date: ");
-        sb.append(plan.getDate());
-        planArea.setText(sb.toString());
-    }
 }
