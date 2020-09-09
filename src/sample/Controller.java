@@ -6,7 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import sample.datamodel.Plan;
+import sample.datamodel.PlanData;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +49,13 @@ public class Controller {
         plans.add(plan4);
         plans.add(plan5);
         plans.add(plan6);
+
+        PlanData.getInstance().setPlans(plans);
+        try {
+            PlanData.getInstance().storePlan();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
         //eventListener
         PlansList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Plan>() {
