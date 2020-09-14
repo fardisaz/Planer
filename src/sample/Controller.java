@@ -42,7 +42,10 @@ public class Controller {
                 }
             }
         });
-        PlansList.getItems().setAll(PlanData.getInstance().getPlans());
+
+
+        //PlansList.getItems().setAll(PlanData.getInstance().getPlans());
+        PlansList.setItems(PlanData.getInstance().getPlans());
         PlansList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         PlansList.getSelectionModel().selectFirst();
 
@@ -68,13 +71,8 @@ public class Controller {
         if(result.isPresent() && result.get()==ButtonType.OK){
             PlanDialog controller=fxmlLoader.getController();
             Plan plan=controller.processResult();
-            PlansList.getItems().setAll(PlanData.getInstance().getPlans());
             PlansList.getSelectionModel().select(plan);
         }
-        else {
-            System.out.println("CANCEL is pressed!");
-        }
-
 
     }
 
