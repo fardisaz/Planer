@@ -20,7 +20,7 @@ public class Controller {
     BorderPane mainBorderPane;
 
     @FXML
-    ListView<Plan>PlansList;
+    ListView<Plan> PlansList;
 
     @FXML
     TextArea planArea;
@@ -65,6 +65,15 @@ public class Controller {
 
         //show the dialog
         Optional<ButtonType> result=dialog.showAndWait();
+        if(result.isPresent() && result.get()==ButtonType.OK){
+            PlanDialog controller=fxmlLoader.getController();
+            Plan plan=controller.processResult();
+            PlansList.getItems().setAll(PlanData.getInstance().getPlans());
+            PlansList.getSelectionModel().select(plan);
+        }
+        else {
+            System.out.println("CANCEL is pressed!");
+        }
 
 
     }

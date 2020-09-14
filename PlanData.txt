@@ -4,3 +4,5 @@ Frankfurt Trip	Renew my passport on Tuesday	15-10-2020
 Master Thesis	I have a meeting with my supervisor	11-09-2020
 Visit Köln	Meet my previous co-worker	28-11-2020
 Christmas Presents	Buying presents for my friends	10-12-2020
+new Plan	New plan is added for testing	16-09-2020
+SecondPlan	This plan is added for test	09-09-2020
