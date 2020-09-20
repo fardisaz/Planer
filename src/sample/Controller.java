@@ -6,10 +6,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
 import sample.datamodel.Plan;
 import sample.datamodel.PlanData;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +51,30 @@ public class Controller {
         PlansList.setItems(PlanData.getInstance().getPlans());
         PlansList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         PlansList.getSelectionModel().selectFirst();
+
+        //cell factory
+        PlansList.setCellFactory(new Callback<ListView<Plan>, ListCell<Plan>>() {
+            @Override
+            public ListCell<Plan> call(ListView<Plan> planListView) {
+                ListCell<Plan> cell=new ListCell<Plan>(){
+                    @Override
+                    protected void updateItem(Plan plan, boolean b) {
+                        super.updateItem(plan, b);
+                        if(b){
+                            setText(null);
+                        }else {
+                            setText(plan.getName());
+                            if(plan.getDate().isBefore(LocalDate.now().plusDays(1))){
+                                setTextFill(Color.ORANGERED);
+                            }else if(plan.getDate().isEqual(LocalDate.now().plusDays(1))){
+                                setTextFill(Color.HOTPINK);
+                            }
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
 
     }
     public  void createPlan(){
